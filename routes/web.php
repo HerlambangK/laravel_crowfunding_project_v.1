@@ -20,8 +20,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/route-1', function(){
-    return 'masuk ke route 1';
+    return 'Hallo, masuk ke route 1';
 })->middleware(['auth', 'email_verified']);
+
 
 Route::get('/route-2', function(){
     return 'Hallo Admin';
