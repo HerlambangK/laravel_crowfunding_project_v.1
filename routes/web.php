@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
 Route::get('/route-1', function(){
     return 'Hallo, masuk ke route 1';
 })->middleware(['auth', 'email_verified']);

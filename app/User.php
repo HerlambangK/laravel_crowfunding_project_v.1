@@ -12,20 +12,7 @@ class User extends Authenticatable
 {
     use Notifiable, UsesUuid;
 
-    public function get_user_role_id()
-        {
-              $role = \App\Role::where('name', 'user')->first();
-              return $role->id;
-        }
-
-    public static function boot()
-        {
-                parent::boot();
-                static:: creating(function($model){
-                    $model->role_id = $model->get_user_role_id();
-                });
-        }
-    /**
+     /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -52,6 +39,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function get_user_role_id()
+        {
+              $role = \App\Role::where('name', 'user')->first();
+              return $role->id;
+        }
+
+    public static function boot()
+        {
+                parent::boot();
+                static:: creating(function($model){
+                    $model->role_id = $model->get_user_role_id();
+                });
+
+                static::created(function($model){
+                    $model->generate_otp_code();
+                });
+        }
+   
+
     public function isAdmin()
         {
               if($this->role_id === $this->get_user_role_id()){
@@ -59,5 +65,22 @@ class User extends Authenticatable
               }
               return true;
         }
-  
+
+
+          public function generate_otp_code()
+        {
+            //buat angka random
+              do{
+                  $random = mt_rand(100000,999999);
+                  $check = OtpCode::where('otp',$random)->first();
+              } while($check);
+
+              $now = Carbon::now();
+
+              //buat otp
+              $otp_code = OtpCode::updateOrCreate(
+                  ['user_id' => $this->id],
+                  ['otp'=> $random, 'valid_until' => $now->addMinute(5)]
+              );return $otp_code;
+        }
 }

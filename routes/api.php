@@ -18,6 +18,10 @@ use Illuminate\Http\Request;
 // });
 
 Route::post('register','Auth\RegisterController');
+Route::post('regenerate-otp','Auth\RegenerateOtpController');
+Route::post('verifikasi','Auth\VerificationController');
+Route::post('update-password','Auth\UpdatePasswordController');
+// Route::post('login','Auth\LoginController');
 // Route::group([
 //     'middleware' => 'api',
 //     'prefix' => 'Auth',
@@ -26,3 +30,10 @@ Route::post('register','Auth\RegisterController');
 // ], function () {
 //     Route::post('register','RegisterController');
 // });
+
+// Route::namespace('auth'->group(function(){
+//     Route::prefix('Auth')->group(function(){
+//         Route::post('register','Auth\RegisterController');
+// // Route::post('regenerate-otp','Auth\RegenerateOtpController');
+//     });
+// }));
