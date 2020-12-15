@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserRegisteredEvent;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+
 
 class RegisterController extends Controller
 {
@@ -24,9 +25,7 @@ class RegisterController extends Controller
             'password'=>['required','min:6'],
             ]);
 
-                // $data_request = $request->all();
-                // $user =  User::create($data_request);
-                // $data['user']= $user;
+            $data=[];
 
             $user = User::create([
                 'name' => request('name'),
@@ -36,13 +35,16 @@ class RegisterController extends Controller
                 // 'password' => decrypt(request('password')),
             ]);
              $data['user']= $user;
+             
+
+            event(new UserRegisteredEvent($user , 'register'));
 
             return response()->json([
                 'response' =>'00',
                 'message'=>' Thanks, Kamu baru mendaftar, Silahkan kirimkan kode otp untuk verifikasi',
                 'data'=>$data
 
-                ]);
+            ],200);
             
     }
 }

@@ -18,6 +18,11 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+
+        'App\Events\UserRegisteredEvent' => [
+        'App\Listeners\SendEmailNotificationUserRegister',
+        // 'App\Listeners\SendEmailOtpCode',
+    ],
     ];
 
     /**
@@ -28,7 +33,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
-
+            
         //
     }
 }
