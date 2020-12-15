@@ -22,7 +22,7 @@ class UpdatePasswordController extends Controller
         ]);
 
         //cek email soapa
-        User::where('email', $request->mail)->update(['password' => bcrypt(request('password'))]);
+        User::where('email', $request->email)->update(['password' => bcrypt(request('password'))]);
 
         return response()->json([
             'response_code' => '00',
