@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
@@ -28,3 +28,7 @@ Route::get('/route-1', function(){
 Route::get('/route-2', function(){
     return 'Hallo Admin';
 })->middleware(['auth', 'email_verified','admin']);
+
+Route::get('/{any?}', function(){
+    return view('app');
+})->where('any','.*');
