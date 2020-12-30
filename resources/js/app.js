@@ -10,6 +10,7 @@ import Vue from "vue";
 import Router from "./router";
 import App from "./App.vue";
 import Vuetify from "./plugins/vuetify";
+import "./bootstrap";
 
 const app = new Vue({
     el: "#app",

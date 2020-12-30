@@ -5,9 +5,9 @@ namespace App;
 use App\Traits\UsesUuid;
 use Illuminate\Database\Eloquent\Model;
 
-class Campaign extends Model
+class Blog extends Model
 {
     use UsesUuid;
-
     protected $guarded = [];
+
 }
