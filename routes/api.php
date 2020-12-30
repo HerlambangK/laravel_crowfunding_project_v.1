@@ -54,3 +54,17 @@ Route::group([
         Route::get('profile/show', 'ProfileController@show');
         Route::post('profile/update', 'ProfileController@update');
     });
+
+    
+// Route::group(['middleware' => ['api', 'email_verified', 'auth:api'],], function () {
+//     Route::get('profile/show', 'ProfileController@show');
+//     Route::post('profile/update', 'ProfileController@show');
+// });
+
+Route::group([
+    'middleware' =>'api',
+    'prefix' => 'campaign',
+], function () {
+    Route::get('random/{count}', 'CampaignController@random');
+    Route::post('profile/update', 'CampaignController@store');
+});

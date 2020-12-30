@@ -3,10 +3,9 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Example Component</div>
-
+                    <div class="card-header">Home</div>
                     <div class="card-body">
-                        Hallo, ini adalah halaman percobaan website
+                        Home
                     </div>
                 </div>
             </div>
@@ -17,7 +16,9 @@
 <script>
 export default {
     mounted() {
-        console.log("Component mounted.");
+        console.log("Component monted Home");
     }
 };
 </script>
+
+<style></style>
