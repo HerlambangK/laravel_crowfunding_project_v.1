@@ -24,7 +24,7 @@ class SendEmailNotificationUserRegister implements ShouldQueue
      * Handle the event.
      *
      * @param  UserRegisteredEvent  $event
-     * @return void`
+     * @return void
      */
     // public function handle(UserRegisteredEvent $event)
     public function handle( $event)
