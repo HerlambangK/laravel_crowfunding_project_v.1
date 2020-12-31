@@ -2,7 +2,7 @@
     <div>
         <v-container class="ma-0 pa-0" grid-list-sm>
             <div class="text-right">
-                <v-btn small text to="/campagins" class="blue--text">
+                <v-btn small text to="/campaigns" class="blue--text">
                     All Campaigns <v-icon>mdi-chevron-right</v-icon>
                 </v-btn>
             </div>
@@ -13,7 +13,7 @@
                     :key="campaign.id"
                     xs6
                 >
-                    <v-card :to="'/category' + campaign.id">
+                    <!-- <v-card :to="'/campagin/' + campaign.id">
                         <v-img
                             :src="campaign.image"
                             class="black--text"
@@ -25,7 +25,8 @@
                             >
                             </v-card-title>
                         </v-img>
-                    </v-card>
+                    </v-card> -->
+                    <campagin-item :campaign="campaign" />
                 </v-flex>
             </v-layout>
         </v-container>
@@ -65,11 +66,16 @@
 </template>
 
 <script>
+// import campagin-item from '../components/CampaignItem';
+
 export default {
     data: () => ({
         campaigns: [],
         blogs: []
     }),
+    components: {
+        CampaginItem: () => import("../components/CampaignItem.vue")
+    },
     created() {
         axios
             .get("/api/campaign/random/4")

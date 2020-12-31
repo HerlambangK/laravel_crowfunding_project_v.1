@@ -61,7 +61,8 @@
             </template>
         </v-navigation-drawer>
 
-        <v-app-bar app color="success" dark>
+        <!-- //untuk home -->
+        <v-app-bar app color="success" dark v-if="isHome">
             <!-- -->
             <!-- <h1>Header</h1> -->
             <v-app-bar-nav-icon @click.stop="drawer = !drawer">
@@ -75,14 +76,15 @@
             <v-spacer></v-spacer>
 
             <v-btn icon>
-                <v-badge color="orange" overlap>
+                <v-badge color="orange" overlap v-if="transaction > 0">
                     <template v-slot:badge>
                         <span>
-                            3
+                            {{ transaction }}
                         </span>
                     </template>
                     <v-icon>mdi-cash-multiple</v-icon>
                 </v-badge>
+                <v-icon v-else>mdi-cash-multiple</v-icon>
             </v-btn>
 
             <v-text-field
@@ -95,6 +97,26 @@
                 solo-inverted
             >
             </v-text-field>
+        </v-app-bar>
+        <!-- selain home -->
+        <v-app-bar app color="success" dark v-else>
+            <v-btn icon @click.stop="$router.go(-1)">
+                <v-icon>mdi-arrow-left-circle</v-icon>
+            </v-btn>
+
+            <v-spacer></v-spacer>
+
+            <v-btn icon>
+                <v-badge color="orange" overlap v-if="transaction > 0">
+                    <template v-slot:badge>
+                        <span>
+                            {{ transaction }}
+                        </span>
+                    </template>
+                    <v-icon>mdi-cash-multiple</v-icon>
+                </v-badge>
+                <v-icon v-else>mdi-cash-multiple</v-icon>
+            </v-btn>
         </v-app-bar>
 
         <!-- Sizes your content based upon application components -->
@@ -127,12 +149,20 @@ export default {
         drawer: false,
         menus: [
             { title: "Home", icon: "mdi-home", route: "/" },
-            { title: "Campaigns", icon: "mdi-hand-heart", route: "/donations" }
+            { title: "Campaigns", icon: "mdi-hand-heart", route: "/campaigns" }
         ],
         guest: false
     }),
     created() {
         console.log("component mounted app ");
+    },
+    computed: {
+        isHome() {
+            return this.$route.path === "/" || this.$route.path === "/home";
+        },
+        transaction() {
+            return this.$store.getters.transaction;
+        }
     }
 };
 </script>

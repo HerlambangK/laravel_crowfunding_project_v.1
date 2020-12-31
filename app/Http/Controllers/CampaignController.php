@@ -81,62 +81,29 @@ class CampaignController extends Controller
             
     public function index()
     {
-        
-    }
+        $campaigns = Campaign::paginate(2);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $data['campaigns'] = $campaigns;
+            return response()->json([
+                    'response_code' => '00',
+                    'response_message' => 'data campaign berhasil di tambahkan',
+                    'data' => $data
+                ],200);
     }
 
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Campaign  $campaign
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Campaign $campaign)
-    {
-        //
-    }
+    public function detail($id)
+        {
+            $campaign = Campaign::find($id);
+            $data['campaign']=$campaign;
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Campaign  $campaign
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Campaign $campaign)
-    {
-        //
-    }
+            return response()->json([
+            'response_code' => '00',
+            'response_message' => 'data campaign berhasil di tampilkan',
+            'data' => $data
+                ],200);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Campaign  $campaign
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Campaign $campaign)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Campaign  $campaign
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Campaign $campaign)
-    {
-        //
-    }
+  
 }

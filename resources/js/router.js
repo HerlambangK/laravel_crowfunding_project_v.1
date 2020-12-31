@@ -2,6 +2,8 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Donations from "./views/Donations.vue";
+import Campaigns from "./views/Campaigns.vue";
+import DetailCampagin from "./views/DetailCampagin.vue";
 
 Vue.use(Router);
 
@@ -20,6 +22,18 @@ const router = new Router({
             name: "donations",
             alias: "/donations",
             component: Donations
+        },
+        {
+            path: "/campaigns",
+            name: "campaigns",
+            alias: "/campaigns",
+            component: Campaigns
+        },
+        {
+            path: "/campagin/:id",
+            name: "campagin",
+            alias: "/campagin",
+            component: DetailCampagin
         },
         {
             path: "*",
