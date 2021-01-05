@@ -51,7 +51,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    console.log(this.campaign.id);
+    console.log(this.campaign);
   }
 });
 

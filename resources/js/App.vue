@@ -2,6 +2,15 @@
     <!-- App.vue -->
 
     <v-app>
+        <alert></alert>
+        <v-dialog
+            v-model="dialog"
+            fullscreen
+            hide-overlay
+            transition="scale-transition"
+        >
+            <search @closed="closeDialog" />
+        </v-dialog>
         <v-navigation-drawer app v-model="drawer">
             <!-- -->
 
@@ -76,10 +85,10 @@
             <v-spacer></v-spacer>
 
             <v-btn icon>
-                <v-badge color="orange" overlap v-if="transaction > 0">
+                <v-badge color="orange" overlap v-if="transactions > 0">
                     <template v-slot:badge>
                         <span>
-                            {{ transaction }}
+                            {{ transactions }}
                         </span>
                     </template>
                     <v-icon>mdi-cash-multiple</v-icon>
@@ -95,6 +104,7 @@
                 label="Cari"
                 prepend-inner-icon="mdi-magnify"
                 solo-inverted
+                @click.stop="dialog = true"
             >
             </v-text-field>
         </v-app-bar>
@@ -107,10 +117,10 @@
             <v-spacer></v-spacer>
 
             <v-btn icon>
-                <v-badge color="orange" overlap v-if="transaction > 0">
+                <v-badge color="orange" overlap v-if="transactions > 0">
                     <template v-slot:badge>
                         <span>
-                            {{ transaction }}
+                            {{ transactions }}
                         </span>
                     </template>
                     <v-icon>mdi-cash-multiple</v-icon>
@@ -143,7 +153,11 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import Alert from "./components/Alert.vue";
+import Search from "./components/Search";
 export default {
+    components: { Alert, Search },
     name: "App",
     data: () => ({
         drawer: false,
@@ -151,7 +165,10 @@ export default {
             { title: "Home", icon: "mdi-home", route: "/" },
             { title: "Campaigns", icon: "mdi-hand-heart", route: "/campaigns" }
         ],
-        guest: false
+        guest: false,
+        // snackbarStatus: false,
+        // snackbarText: `Donasi Berhasil ditambahkan`
+        dialog: false
     }),
     created() {
         console.log("component mounted app ");
@@ -160,10 +177,21 @@ export default {
         isHome() {
             return this.$route.path === "/" || this.$route.path === "/home";
         },
-        transaction() {
-            return this.$store.getters.transaction;
+        // transaction() {
+        //     // console.log(this.$store);
+        //     return this.$store.getters.transaction;
+        // }
+        ...mapGetters({
+            transactions: "transaction/transactions"
+        })
+    },
+    methods: {
+        closeDialog(value) {
+            this.dialog = value;
         }
-    }
+    },
+
+    mounted() {}
 };
 </script>
 

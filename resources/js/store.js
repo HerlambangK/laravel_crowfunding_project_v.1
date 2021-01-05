@@ -1,21 +1,13 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import transaction from "./stores/transaction";
+import alert from "./stores/alert";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    state: {
-        transaction: 0
-    },
-    mutations: {
-        insert: (state, payload) => {
-            state.transaction++;
-        }
-    },
-
-    action: {},
-
-    getters: {
-        transaction: state => state.transaction
+    modules: {
+        transaction,
+        alert
     }
 });

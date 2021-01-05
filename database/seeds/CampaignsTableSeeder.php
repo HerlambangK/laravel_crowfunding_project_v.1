@@ -14,17 +14,19 @@ class CampaignsTableSeeder extends Seeder
     public function run()
     {
         $campaigns = [];
-        $faker = Faker\Factory::create();
+        $faker =faker\Factory::create();
         for($i=0; $i<3; $i++){
-            $avatar_path = '/photos/user/photo-profile';
+            $avatar_path = 'public/photos/campaign';
             $avatar_fullpath =$faker->image($avatar_path,200,250, 'people', true,true,'people');
             $avatar_image = explode('\\', $avatar_fullpath);
             $campaigns[$i]=[
                 'title'=> $faker->title,
                 'description' =>$faker->text,
-                'image' => '/photos/campaigns/'.$avatar_image[0],
+                'image' => 'public/photos/campaign/'.$avatar_image[0],
                 'created_at'=> \Carbon\Carbon::now()
             ];
+
+            dd($avatar_path );
         }
         DB::table('campaigns')->insert($campaigns);
     }

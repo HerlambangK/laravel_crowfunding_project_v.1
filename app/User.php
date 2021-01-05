@@ -73,7 +73,7 @@ class User extends Authenticatable implements JWTSubject
                     $model->role_id = $model->get_user_role_id();
                 });
 
-                static::creating(function($model){
+                static::created(function($model){
                     $model->generate_otp_code();
                 });
         }

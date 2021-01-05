@@ -56,7 +56,7 @@ export default {
 
     methods: {
         go() {
-            let url = "api/campaign?page=" + this.page;
+            let url = "api/campaign/?page=" + this.page;
             axios
                 .get(url)
                 .then(response => {
@@ -65,7 +65,7 @@ export default {
                     this.campaigns = data.campaigns.data;
                     this.page = data.campaigns.current_page;
                     this.lenghtPage = data.campaigns.last_page;
-                    console.log(data.campaigns.last_page);
+                    console.log(data.campaigns);
                 })
 
                 .catch(error => {

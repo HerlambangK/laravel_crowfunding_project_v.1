@@ -41,7 +41,7 @@ export default {
         }
     },
     mounted() {
-        console.log(this.campaign.id);
+        console.log(this.campaign);
     }
 };
 </script>
