@@ -45,6 +45,8 @@ Route::namespace('Auth')->group(function(){
     Route::post('update-password','UpdatePasswordController');
 
     Route::post('login','LoginController');
+     Route::post('logout', 'LogoutController')->middleware('auth:api');
+     Route::post('check-token', 'CheckTokenController')->middleware('auth:api');
 });
 
 
@@ -70,6 +72,7 @@ Route::group([
     Route::get('/', 'CampaignController@index');
     Route::get('/{id}', 'CampaignController@detail');
     Route::get('search/{keyword}', 'CampaignController@search');
+   
 });
 
 Route::group([

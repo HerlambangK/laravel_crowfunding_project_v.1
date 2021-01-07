@@ -47,7 +47,9 @@ __webpack_require__.r(__webpack_exports__);
   props: ["campaign"],
   computed: {
     progress: function progress() {
-      return this.campaign.collected / this.campaign.required * 100;
+      var persen = Math.round(this.campaign.collected / this.campaign.required * 100);
+      return persen; // return (this.campaign.collected / this.campaign.required) * 100;
+      // Math()
     }
   },
   mounted: function mounted() {

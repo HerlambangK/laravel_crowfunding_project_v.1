@@ -90,7 +90,7 @@ export default {
             this.tambahTransaksi();
             this.setAlert({
                 status: true,
-                color: "success",
+                color: "info",
                 text: "Transaksi berhasil ditambahkan"
             });
         }

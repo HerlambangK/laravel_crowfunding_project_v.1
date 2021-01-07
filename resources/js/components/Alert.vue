@@ -1,11 +1,13 @@
 <template>
     <v-snackbar
         v-model="alert"
-        color="success"
-        bottom
+        :color="color"
         timeout="4000"
-        multi-line
         outlined
+        text
+        right
+        top
+        transition="scale-transition"
     >
         {{ text }}
         <template v-slot:action="{ attrs }">
