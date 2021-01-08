@@ -12,22 +12,22 @@ class CampaignController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+    public function random($count)
+            {
+                  $campaigns = Campaign::select('*')
+                            ->inRandomOrder()
+                            ->limit($count)
+                            ->get();
+                $data['campaigns'] = $campaigns;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+                return response()->json([
+                    'response_code' => '00',
+                    'response_message' => 'data campaign berhasil di tampilkan',
+                    'data' => $data
+                ],200);
+            }
 
-    /**
+                /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -35,51 +35,88 @@ class CampaignController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'image' => 'required|mimes:png,jpg,jpeg'
+        ]);
+
+        $campaign = Campaign::create([
+            'title' =>$request->title,
+            'description' => $request->description
+        ]);
+        
+        // $data['campaigns'] = $campaign;
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $image_extension = $image->getClientOriginalExtension();
+            $image_name = $campaign->id.".". $image_extension;
+            $image_folder = '/photos/campaign/';
+
+            $image_location = $image_folder . $image_name;
+            // $image->move(public_path($image_folder), $image_name);
+
+          try{
+              $image->move(public_path($image_folder), $image_name);
+              $campaign->update([
+                  'image'=> $image_location,
+              ]);
+              
+          } catch ( \Exception $e) {
+              return response()->json([
+                  'response_code'=> '01',
+                  'response_message'=>'photo profile gagal upload',
+                  'data' => $data
+              ],200);
+          }
+        }
+        $data['campaigns'] = $campaign;
+         return response()->json([
+                    'response_code' => '00',
+                    'response_message' => 'data campaign berhasil di tambahkan',
+                    'data' => $data
+                ],200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Campaign  $campaign
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Campaign $campaign)
+            
+    public function index()
     {
-        //
+        $campaigns = Campaign::paginate(2);
+
+        $data['campaigns'] = $campaigns;
+            return response()->json([
+                    'response_code' => '00',
+                    'response_message' => 'data campaign berhasil di tambahkan',
+                    'data' => $data
+                ],200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Campaign  $campaign
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Campaign $campaign)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Campaign  $campaign
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Campaign $campaign)
-    {
-        //
-    }
+    public function detail($id)
+        {
+            $campaign = Campaign::find($id);
+            $data['campaign']=$campaign;
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Campaign  $campaign
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Campaign $campaign)
-    {
-        //
-    }
+            return response()->json([
+            'response_code' => '00',
+            'response_message' => 'data campaign berhasil di tampilkan',
+            'data' => $data
+                ],200);
+        }
+
+        public function search($keyword)
+            {
+                  $campaigns = Campaign::select('*')->where('title','LIKE', "%".$keyword."%")->get();
+                  $data['campaigns'] = $campaigns;
+
+                  return response()->json([
+                    'response_code' => '00',
+                    'response_message' => 'data campaign berhasil di Cari',
+                    'data' => $data
+                        ],200);
+            }
+            
+
+
+  
 }
