@@ -4,6 +4,7 @@ import Home from "./views/Home.vue";
 import Donations from "./views/Donations.vue";
 import Campaigns from "./views/Campaigns.vue";
 import DetailCampagin from "./views/DetailCampagin.vue";
+import SocialLogin from "./views/Social.vue";
 
 Vue.use(Router);
 
@@ -34,6 +35,12 @@ const router = new Router({
             name: "campagin",
             alias: "/campagin",
             component: DetailCampagin
+        },
+        {
+            path: "/auth/social/google/callback",
+            name: "social",
+            alias: "/social",
+            component: SocialLogin
         },
         {
             path: "*",
